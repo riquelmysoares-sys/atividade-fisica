@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio de Conhecimento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --error: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, #1e1b4b, #0f172a);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            perspective: 1000px;
+        }
+
+        .box {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: center;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        .campo {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 8px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .erro {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 16px;
+            text-align: center;
+            display: none;
+            padding: 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .icon {
+            margin-right: 8px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="box">
+            <h2>Desafio Mental</h2>
+            <p class="subtitle">A precisão é fundamental para o seu progresso.</p>
+            
+            <div class="campo">
+                <label for="p1"><i class="fas fa-history icon"></i>Quando foi a primeira guerra mundial?</label>
+                <div class="input-group">
+                    <input type="text" id="p1" placeholder="ex: 1 de janeiro de 2000">
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="p2"><i class="fas fa-globe icon"></i>Quando foi criado o primeiro site?</label>
+                <div class="input-group">
+                    <input type="text" id="p2" placeholder="Sua resposta aqui">
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="p3"><i class="fas fa-laptop-code icon"></i>Quando Bill Gates fundou a Microsoft?</label>
+                <div class="input-group">
+                    <input type="text" id="p3" placeholder="Sua resposta aqui">
+                </div>
+            </div>
+
+            <button id="btnEnviar">
+                <span>Validar Conhecimento</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            
+            <p id="msgErro" class="erro">
+                <i class="fas fa-circle-exclamation"></i>
+                Dados incorretos. Tente novamente com mais precisão.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('btnEnviar').addEventListener('click', () => {
+            const r1 = document.getElementById('p1').value.trim().toLowerCase();
+            const r2 = document.getElementById('p2').value.trim().toLowerCase();
+            const r3 = document.getElementById('p3').value.trim().toLowerCase();
+
+            // Respostas esperadas
+            if (r1 === "28 de julho de 1914" && 
+                r2 === "6 de agosto de 1991" && 
+                r3 === "4 de abril de 1975") {
+                window.location.href = 'descanso.html';
+            } else {
+                const errorEl = document.getElementById('msgErro');
+                errorEl.style.display = 'block';
+                
+                // Reinicia animação de shake
+                errorEl.style.animation = 'none';
+                errorEl.offsetHeight; // trigger reflow
+                errorEl.style.animation = null;
+            }
+        });
+
+        // Permitir envio com Enter
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    document.getElementById('btnEnviar').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

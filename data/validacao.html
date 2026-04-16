@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Segurança</title>
+    <style>
+        /* O body não usa mais flexbox para evitar conflito. Usamos position: absolute nos elementos */
+        body { 
+            font-family: Arial, sans-serif; 
+            height: 100vh; 
+            margin: 0; 
+            background-color: #f4f4f9; 
+            transition: background-color 0.5s ease; 
+            overflow: hidden; /* Impede barras de rolagem ao arrastar */
+            position: relative; 
+        }
+
+        /* Os containers ficam travados exatamente no meio da tela */
+        .container { 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); /* Centralização perfeita */
+            text-align: center; 
+            padding: 40px; 
+            border-radius: 10px; 
+            width: 100%; 
+            max-width: 400px; 
+            z-index: 10; /* Fica BEM NA FRENTE de tudo */
+            box-sizing: border-box;
+        }
+
+        #telaValidacao { background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        /* A página preta do Enigma */
+        body.fundo-preto { background-color: #050505; color: white; }
+        #telaEnigma { background: #111; border: 1px solid #333; }
+        
+        input { padding: 12px; margin: 10px 0; width: 90%; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        body.fundo-preto input { background-color: #222; color: white; border: 1px solid #555; text-align: center; }
+        
+        button.btn-padrao { padding: 12px 20px; font-size: 18px; cursor: pointer; background-color: #333; color: white; border: none; border-radius: 5px; width: 100%; margin-top: 10px; }
+        button.btn-padrao:hover { background-color: #555; }
+        
+        .erro-msg { color: #d32f2f; margin-top: 15px; font-weight: bold; font-size: 18px; }
+
+        /* O BOTÃO ESCONDIDO (QUASE LÁ) */
+        #btnQuaseLa {
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); /* Centralizado no exato mesmo pixel que o container */
+            z-index: 1; /* Z-INDEX 1: Fica totalmente atrás do container (z-index 10) */
+            padding: 15px 30px; 
+            background-color: #ff9800; 
+            color: white; 
+            border-radius: 8px; 
+            border: none; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 18px;
+        }
+
+        .msg-fatal { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #ff0000; font-size: 50px; font-weight: bold; text-align: center; width: 100%; z-index: 100; }
+        
+        .hidden { display: none !important; }
+        .draggable { cursor: grab !important; }
+        .draggable:active { cursor: grabbing !important; }
+    </style>
+</head>
+<body>
+
+    <button id="btnQuaseLa" class="hidden">quase lá hein</button>
+
+    <div id="telaValidacao" class="container">
+        <h2>Confirmação de Identidade</h2>
+        <input type="text" id="valCpf" placeholder="digite novamente seu cpf por favor">
+        <input type="date" id="valData">
+        <button id="btnVerificar" class="btn-padrao">Verificar Dados</button>
+        <div id="erroValidacao" class="erro-msg hidden">data não corresponde a cpf</div>
+    </div>
+
+    <div id="telaEnigma" class="container hidden">
+        <h2>quantos botões vc apertou?</h2>
+        <input type="text" id="inputResposta" placeholder="Digite o número">
+        <button id="btnResponder" class="btn-padrao">Responder</button>
+        <div id="msgRetorno" class="erro-msg hidden"></div>
+    </div>
+
+    <div id="msgFatal" class="msg-fatal hidden">ERRADO SEU BURRO.<br>AGORA TENTE TUDO DE NOVO.</div>
+
+    <script>
+        const telaValidacao = document.getElementById('telaValidacao');
+        const telaEnigma = document.getElementById('telaEnigma');
+        const btnQuaseLa = document.getElementById('btnQuaseLa');
+        const msgRetorno = document.getElementById('msgRetorno');
+
+        // VALIDAÇÃO INICIAL
+        document.getElementById('btnVerificar').addEventListener('click', () => {
+            const cpfSalvo = localStorage.getItem('cpfSalvo');
+            const dataSalva = localStorage.getItem('dataSalva');
+            
+            if (document.getElementById('valCpf').value === cpfSalvo && document.getElementById('valData').value === dataSalva) {
+                // Avança
+                telaValidacao.classList.add('hidden');
+                document.body.classList.add('fundo-preto');
+                
+                // Mostra a tela do enigma E o botão atrás (ele fica invisível porque o enigma tampa)
+                telaEnigma.classList.remove('hidden');
+                btnQuaseLa.classList.remove('hidden'); 
+            } else {
+                document.getElementById('erroValidacao').classList.remove('hidden');
+            }
+        });
+
+        // ENIGMA E DRAG DA CAIXA
+        document.getElementById('btnResponder').addEventListener('click', () => {
+            const resp = document.getElementById('inputResposta').value.trim();
+            if (resp === '103') {
+                msgRetorno.style.color = '#4CAF50';
+                msgRetorno.innerText = "Correto!...";
+                msgRetorno.classList.remove('hidden');
+                
+                // Libera para arrastar!
+                telaEnigma.classList.add('draggable');
+                tornarArrastavel(telaEnigma);
+            } else if (resp === '100') {
+                msgRetorno.style.color = '#ff9800';
+                msgRetorno.innerText = "vc não está pensando direito";
+                msgRetorno.classList.remove('hidden');
+            } else {
+                telaEnigma.classList.add('hidden');
+                btnQuaseLa.classList.add('hidden'); // Esconde o botão também pra garantir
+                document.getElementById('msgFatal').classList.remove('hidden');
+                setTimeout(() => { window.location.href = 'index.html'; }, 4000);
+            }
+        });
+
+        // Função de arrastar corrigida para não dar "pulo" no primeiro clique
+        function tornarArrastavel(elemento) {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            elemento.onmousedown = (e) => {
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                
+                // Converte o posicionamento atual centralizado para coordenadas absolutas fixas
+                if (elemento.style.transform !== 'none') {
+                    const rect = elemento.getBoundingClientRect();
+                    elemento.style.transform = 'none';
+                    elemento.style.left = rect.left + 'px';
+                    elemento.style.top = rect.top + 'px';
+                }
+
+                document.onmousemove = (e) => {
+                    e.preventDefault();
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    elemento.style.top = (elemento.offsetTop - pos2) + "px";
+                    elemento.style.left = (elemento.offsetLeft - pos1) + "px";
+                };
+                
+                document.onmouseup = () => {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
+                };
+            };
+        }
+
+        // Clicou no botão escondido -> Vai para a tela de perguntas
+        btnQuaseLa.addEventListener('click', () => {
+            window.location.href = 'perguntas.html';
+        });
+    </script>
+</body>
+</html>

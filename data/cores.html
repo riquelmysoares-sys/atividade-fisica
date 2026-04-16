@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalização do Sistema</title>
+    <style>
+        body { font-family: 'Courier New', Courier, monospace; background-color: #1a1a1a; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; transition: background-color 0.5s; }
+        .container { background: #222; padding: 40px; border: 1px solid #444; width: 100%; max-width: 450px; text-align: center; }
+        input[type="text"], input[type="date"] { width: 90%; padding: 12px; margin: 15px 0; background: #000; border: 1px solid #0f0; color: #0f0; text-align: center; font-size: 16px; }
+        button { background: #0f0; color: #000; border: none; padding: 15px 30px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 10px; }
+        button:hover { background: #00cc00; }
+        .hidden { display: none !important; }
+        
+        #msgZoeira { font-size: 28px; color: #fff; font-weight: bold; text-align: center; padding: 20px; }
+        .data-destaque { color: #000; background-color: #fff; padding: 5px 15px; border-radius: 5px; display: inline-block; margin-top: 20px; font-size: 32px; }
+        .tela-preta-total { background-color: #000 !important; }
+    </style>
+</head>
+<body>
+
+    <div id="blocoQuiz" class="container">
+        <h3>VERIFICAÇÃO DE MEMÓRIA</h3>
+        
+        <p>Quantas cores diferentes foram geradas ao clicar no botão de OK?</p>
+        <input type="text" id="respCores" placeholder="0">
+        
+        <p>Quantas vezes apareceu pra vc colocar a data?</p>
+        <input type="text" id="respVezes" placeholder="0">
+
+        <p>qual o código?</p>
+        <input type="text" id="respCodigo" placeholder="0000">
+        
+        <button id="btnVerificar">Verificar</button>
+    </div>
+
+    <div id="blocoFinal" class="container hidden">
+        <h3>FINALIZAÇÃO REAL</h3>
+        <p>Digite sua data de nascimento para encerrar o processo:</p>
+        <input type="date" id="dataFinal">
+        <button id="btnSalvarFinal">Salvar e Sair</button>
+    </div>
+
+    <div id="msgAcabou" class="hidden">
+        <h2 style="color: red; font-size: 40px;">vc acha q acabou?</h2>
+    </div>
+
+    <div id="msgZoeira" class="hidden">
+        zoeira mano, ce conseguiu colocar sua data de nascimento :D<br>
+        <div style="margin-top: 30px; font-size: 20px; font-weight: normal;">vc nasceu em:</div>
+        <div class="data-destaque" id="dataDisplay"></div>
+    </div>
+
+    <script>
+        const blocoQuiz = document.getElementById('blocoQuiz');
+        const blocoFinal = document.getElementById('blocoFinal');
+        const msgAcabou = document.getElementById('msgAcabou');
+        const msgZoeira = document.getElementById('msgZoeira');
+        const dataDisplay = document.getElementById('dataDisplay');
+
+        // Lógica do Quiz
+        document.getElementById('btnVerificar').addEventListener('click', () => {
+            const cores = document.getElementById('respCores').value.trim();
+            const vezes = document.getElementById('respVezes').value.trim();
+            const codigo = document.getElementById('respCodigo').value.trim();
+
+            if (cores === '6' && vezes === '5' && codigo === '0027') {
+                blocoQuiz.classList.add('hidden');
+                blocoFinal.classList.remove('hidden');
+            } else {
+                alert("Memória falha. Tente novamente.");
+            }
+        });
+
+        // Lógica do Salvar Final
+        document.getElementById('btnSalvarFinal').addEventListener('click', () => {
+            const dataInput = document.getElementById('dataFinal').value;
+            
+            // Verifica se a pessoa preencheu a data antes de prosseguir
+            if (!dataInput) {
+                alert("Por favor, insira sua data para finalizar.");
+                return;
+            }
+
+            // A data do input tipo "date" vem no formato YYYY-MM-DD. 
+            // Vamos formatar para DD/MM/YYYY para ficar bonitão na tela final.
+            const partesData = dataInput.split('-');
+            const dataFormatada = `${partesData[2]}/${partesData[1]}/${partesData[0]}`;
+            
+            // Coloca a data formatada no texto final
+            dataDisplay.innerText = dataFormatada;
+            
+            // Esconde o formulário e mostra "vc acha q acabou?"
+            blocoFinal.classList.add('hidden');
+            msgAcabou.classList.remove('hidden');
+
+            // Depois de 2 segundos, tela fica toda preta
+            setTimeout(() => {
+                msgAcabou.classList.add('hidden');
+                document.body.classList.add('tela-preta-total');
+                
+                // Depois de 5 segundos no escuro, revela a vitória
+                setTimeout(() => {
+                    document.body.classList.remove('tela-preta-total');
+                    document.body.style.backgroundColor = "#4CAF50"; // Verde de vitória
+                    msgZoeira.classList.remove('hidden');
+                }, 5000);
+
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

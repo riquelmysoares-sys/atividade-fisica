@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviso Importante - Data</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; overflow: hidden; }
+        .container { display: flex; flex-direction: column; align-items: center; margin-top: 80px; }
+        .alerta-vermelho { color: #ff0000; font-size: 40px; font-weight: bold; text-align: center; margin-bottom: 20px; text-transform: uppercase; }
+        .sub-texto { font-size: 22px; margin-bottom: 30px; }
+        input[type="date"] { padding: 12px; font-size: 18px; border-radius: 8px; border: 2px solid #ccc; }
+        
+        .btn-ok {
+            position: absolute; top: 60%; left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px; font-size: 20px; background-color: #2196F3; color: white;
+            border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="alerta-vermelho">ISSO É UM ANÚNCIO<br>VOLTE PARA O SITE OFICIAL</div>
+        <div class="sub-texto">coloque aqui sua verdadeira data de nascimento</div>
+        <input type="date" id="dataVerdadeira">
+    </div>
+
+    <button id="btnOriginal" class="btn-ok">(ok :3)</button>
+
+    <script>
+        const btnOriginal = document.getElementById('btnOriginal');
+        let gerando = false;
+        let faseRemocao = false;
+
+        btnOriginal.addEventListener('click', function() {
+            if (faseRemocao || gerando) return; 
+            gerando = true;
+
+            const dataVerd = document.getElementById('dataVerdadeira').value;
+            localStorage.setItem('dataSalva', dataVerd);
+
+            this.style.backgroundColor = '#4CAF50'; 
+
+            let quantidadeBotoes = 1;
+            const multiplicador = setInterval(() => {
+                if (quantidadeBotoes >= 100) {
+                    clearInterval(multiplicador);
+                    faseRemocao = true; 
+                    return;
+                }
+
+                const novoBotao = btnOriginal.cloneNode(true);
+                const cores = ['#ff9800', '#f44336', '#9c27b0', '#009688', '#3f51b5', '#e91e63'];
+                novoBotao.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+                novoBotao.style.transform = 'none'; 
+                novoBotao.style.left = Math.random() * (window.innerWidth - 120) + 'px';
+                novoBotao.style.top = Math.random() * (window.innerHeight - 60) + 'px';
+
+                document.body.appendChild(novoBotao);
+                quantidadeBotoes++;
+            }, 30); 
+        });
+
+        document.body.addEventListener('click', function(e) {
+            if (faseRemocao && e.target.classList.contains('btn-ok')) {
+                const totalRestante = document.querySelectorAll('.btn-ok').length;
+                if (totalRestante === 1) {
+                    window.open('validacao.html', '_blank');
+                } else {
+                    e.target.remove();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

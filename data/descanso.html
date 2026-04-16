@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação Final</title>
+    <style>
+        body { background-color: #000; color: #fff; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; overflow: hidden; }
+        .conteudo { max-width: 500px; position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        h1 { font-size: 24px; color: #888; font-style: italic; }
+        p { font-size: 18px; margin-bottom: 30px; }
+        input { padding: 15px; font-size: 20px; border-radius: 0; border: none; border-bottom: 2px solid #333; background: transparent; color: #fff; text-align: center; width: 80%; outline: none; }
+        
+        /* O texto clicável e imprevisível */
+        #textoClicavel {
+            position: absolute;
+            bottom: 50px;
+            font-size: 14px;
+            color: #444;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            user-select: none;
+            padding: 10px;
+        }
+        #textoClicavel:hover { color: #00ff00; }
+    </style>
+</head>
+<body>
+
+    <div class="conteudo">
+        <h1>está cansado né ,.,?</h1>
+        <p>digite agora a sua data novamente para confirmamos.</p>
+        <input type="date" id="dataConfirmacao">
+        
+        <div id="textoClicavel">Aguardando próxima instrução...</div>
+    </div>
+
+    <script>
+        const texto = document.getElementById('textoClicavel');
+        let fugas = 0;
+
+        // Faz o texto fugir do mouse nas primeiras 5 vezes
+        texto.addEventListener('mouseover', () => {
+            if (fugas < 5) {
+                const x = Math.random() * (window.innerWidth - 200);
+                const y = Math.random() * (window.innerHeight - 50);
+                texto.style.position = 'fixed';
+                texto.style.left = x + 'px';
+                texto.style.top = y + 'px';
+                fugas++;
+            }
+        });
+
+        texto.addEventListener('click', () => {
+            window.location.href = 'cores.html';
+        });
+    </script>
+</body>
+</html>
