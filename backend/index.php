@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 // backend/index.php
 
 /**
@@ -30,3 +31,11 @@ $alunoController = new AlunoController($alunoService);
 // 3. Inicialização do Roteador (Injeção do Controller)
 $router = new Router($alunoController);
 $router->resolver();
+=======
+// index.php
+require_once 'router.php';
+
+// Aciona o Roteador
+$router = new Router();
+$router->resolver();
+>>>>>>> 045db997e77f30643feb80b55de6e9398d241378
