@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife - Transforme seu Corpo e Mente</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-dumbbell"></i> FitLife
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#exercises">Exercícios</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#auth">Começar</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Alcance seu Melhor Nível</h1>
+                <p>Treinos personalizados para seus objetivos, com suporte de IA e acompanhamento de progresso real. Comece sua jornada hoje.</p>
+                <div class="hero-btns">
+                    <a href="#auth" class="btn btn-primary">Começar Agora</a>
+                    <a href="#exercises" class="btn btn-outline" style="margin-left: 15px;">Ver Exercícios</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXERCISES SECTION -->
+    <section class="section-padding" id="exercises">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Nossos Exercícios</h2>
+                <p style="color: var(--text-muted);">Uma biblioteca completa de movimentos para todos os níveis.</p>
+            </div>
+
+            <div class="exercise-grid">
+                <!-- Card 1 -->
+                <div class="exercise-card">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=500&h=300&fit=crop" alt="Flexão" class="exercise-img">
+                    <div class="exercise-info">
+                        <span class="difficulty diff-easy">Iniciante</span>
+                        <h3 class="mt-1">Flexão de Braço</h3>
+                        <p>Trabalha peitoral, ombros e tríceps. O exercício base para membros superiores.</p>
+                        <a href="#auth" style="color: var(--primary); font-weight: 600;">Ver detalhes <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="exercise-card">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=500&h=300&fit=crop" alt="Agachamento" class="exercise-img">
+                    <div class="exercise-info">
+                        <span class="difficulty diff-medium">Intermediário</span>
+                        <h3 class="mt-1">Agachamento Livre</h3>
+                        <p>Foco total em quadríceps e glúteos. Fundamental para força e estabilidade.</p>
+                        <a href="#auth" style="color: var(--primary); font-weight: 600;">Ver detalhes <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="exercise-card">
+                    <img src="https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?w=500&h=300&fit=crop" alt="Burpee" class="exercise-img">
+                    <div class="exercise-info">
+                        <span class="difficulty diff-hard">Avançado</span>
+                        <h3 class="mt-1">Burpees</h3>
+                        <p>O melhor exercício para queima calórica e condicionamento cardiovascular intenso.</p>
+                        <a href="#auth" style="color: var(--primary); font-weight: 600;">Ver detalhes <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTH SECTION -->
+    <section class="section-padding" id="auth" style="background-color: var(--bg-main);">
+        <div class="container text-center">
+            <h2 class="mb-4">Pronto para o Próximo Nível?</h2>
+            
+            <div class="auth-section">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="tab-login" onclick="switchTab('login')">Entrar</div>
+                    <div class="auth-tab" id="tab-register" onclick="switchTab('register')">Criar Conta</div>
+                </div>
+
+                <div id="login-form">
+                    <div class="form-group">
+                        <label for="input-usuario">Nome de Usuário (ID)</label>
+                        <input type="text" id="input-usuario" placeholder="Seu usuário">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-senha">Senha</label>
+                        <input type="password" id="input-senha" placeholder="Sua senha">
+                    </div>
+                    <button id="btn-login" class="btn btn-primary" style="width: 100%;">Acessar App</button>
+                </div>
+
+                <div id="register-form" style="display: none;">
+                    <div class="form-group">
+                        <label for="reg-usuario">Nome de Usuário</label>
+                        <input type="text" id="reg-usuario" placeholder="Como quer ser chamado">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-senha">Senha</label>
+                        <input type="password" id="reg-senha" placeholder="Crie uma senha forte">
+                    </div>
+                    <button id="btn-cadastrar" class="btn btn-primary" style="width: 100%;">Criar Minha Conta</button>
+                </div>
+
+                <p id="mensagem-aviso" style="margin-top: 15px; font-size: 0.9rem;"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#" class="logo mb-2">
+                        <i class="fas fa-dumbbell"></i> FitLife
+                    </a>
+                    <p style="color: var(--text-muted);">Transformando vidas através do movimento e da disciplina. Sua saúde é nossa prioridade.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#exercises">Exercícios</a></li>
+                        <li><a href="#auth">Começar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="#">Dicas</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 FitLife App. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
