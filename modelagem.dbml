@@ -1,0 +1,61 @@
+// DBML - Atividade Física System (FitLife Pro)
+
+Table alunos {
+  id uuid [primary key]
+  nome varchar(255)
+  email varchar(255)
+  senha_hash varchar(255)
+  data_nascimento date
+  curso varchar(100)
+  nivel_experiencia varchar(50)
+  criado_at datetime
+}
+
+Table avaliacoes {
+  id uuid [primary key]
+  aluno_id uuid
+  idade integer
+  peso decimal(5,2)
+  altura decimal(5,2)
+  objetivo varchar(50)
+  frequencia_semanal integer
+  meta_agua_ml decimal(10,2)
+  criado_at datetime
+}
+
+Table categorias_exercicio {
+  id integer [primary key]
+  nome varchar(50)
+}
+
+Table exercicios {
+  id uuid [primary key]
+  categoria_id integer
+  nome varchar(100)
+  descricao text
+  series varchar(50)
+  descanso varchar(50)
+  dica text
+  imagem_url varchar(512)
+}
+
+Table progresso_treinos {
+  id uuid [primary key]
+  aluno_id uuid
+  dia_ciclo integer
+  concluido_em datetime
+}
+
+Table habitos_diarios {
+  id uuid [primary key]
+  aluno_id uuid
+  data date
+  bebeu_agua boolean
+  dormiu_bem boolean
+  seguiu_dieta boolean
+}
+
+Ref: avaliacoes.aluno_id > alunos.id
+Ref: exercicios.categoria_id > categorias_exercicio.id
+Ref: progresso_treinos.aluno_id > alunos.id
+Ref: habitos_diarios.aluno_id > alunos.id
