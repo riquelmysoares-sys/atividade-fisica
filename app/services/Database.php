@@ -1,21 +1,19 @@
 <?php
-// backend/Database.php
+// app/services/Database.php
 
 /**
  * Padrão Singleton para Gerenciamento de Conexão PDO
- * Garante que apenas uma conexão com o banco de dados seja aberta durante o ciclo de vida da requisição.
  */
 class Database {
     private static $instance = null;
     private $pdo;
 
     private function __construct() {
-        $config = parse_ini_file(__DIR__ . '/config.ini', true);
+        $config = require 'config.php';
         
         if (isset($config['database']['driver']) && $config['database']['driver'] === 'sqlite') {
-            $dsn = "sqlite:" . __DIR__ . "/" . $config['database']['database'];
+            $dsn = "sqlite:" . $config['database']['database'];
         } else {
-            // Suporte para outros drivers (ex: mysql)
             $driver = $config['database']['driver'] ?? 'mysql';
             $host = $config['database']['host'] ?? 'localhost';
             $dbname = $config['database']['database'] ?? 'test';
@@ -31,9 +29,6 @@ class Database {
         }
     }
 
-    /**
-     * Retorna a única instância da classe Database
-     */
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -41,14 +36,10 @@ class Database {
         return self::$instance;
     }
 
-    /**
-     * Retorna o objeto PDO configurado
-     */
     public function getConnection() {
         return $this->pdo;
     }
 
-    // Previne clonagem e desserialização (Singleton)
     private function __clone() {}
     private function __wakeup() {}
 }

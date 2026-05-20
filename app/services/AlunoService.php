@@ -1,9 +1,5 @@
 <?php
-// backend/AlunoService.php
-
-require_once 'BusinessRuleException.php';
-require_once 'IAlunoRepository.php';
-require_once 'Aluno.php';
+// app/services/AlunoService.php
 
 /**
  * Camada de Serviço para Alunos

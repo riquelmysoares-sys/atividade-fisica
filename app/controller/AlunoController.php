@@ -1,9 +1,5 @@
 <?php
-// backend/AlunoController.php
-
-require_once 'AlunoService.php';
-require_once 'Aluno.php';
-require_once 'BusinessRuleException.php';
+// app/controller/AlunoController.php
 
 /**
  * Controlador de Alunos

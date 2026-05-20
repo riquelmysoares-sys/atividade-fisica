@@ -1,8 +1,5 @@
 <?php
-// backend/AlunoRepository.php
-
-require_once 'IAlunoRepository.php';
-require_once 'Aluno.php';
+// app/model/AlunoRepository.php
 
 /**
  * Implementação PDO do Repositório de Alunos
