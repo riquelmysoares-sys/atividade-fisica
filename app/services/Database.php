@@ -9,10 +9,12 @@ class Database {
     private $pdo;
 
     private function __construct() {
-        $config = require 'config.php';
+        // Busca o config.php na raiz do projeto usando o diretório atual como referência
+        $config = require __DIR__ . '/../../config.php';
         
         if (isset($config['database']['driver']) && $config['database']['driver'] === 'sqlite') {
-            $dsn = "sqlite:" . $config['database']['database'];
+            // O caminho do banco também deve ser relativo à raiz ou absoluto
+            $dsn = "sqlite:" . __DIR__ . '/../../' . $config['database']['database'];
         } else {
             $driver = $config['database']['driver'] ?? 'mysql';
             $host = $config['database']['host'] ?? 'localhost';

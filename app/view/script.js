@@ -100,7 +100,7 @@ if (btnLogin) {
         else if (senhaSalva === senhaDigitada) {
             mostrarMensagem('Acesso autorizado! Redirecionando...', '#34d399');
             setTimeout(() => {
-                window.location.href = 'formulario.html';
+                window.location.href = 'index.php?page=formulario';
             }, 800);
         } 
         else {

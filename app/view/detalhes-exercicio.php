@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Exercício - FitLife Pro</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="app/view/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .detail-container {
@@ -128,7 +128,7 @@
 </head>
 <body class="bg-main">
 
-    <a href="formulario.html" class="back-btn">
+    <a href="index.php?page=formulario" class="back-btn">
         <i class="fas fa-arrow-left"></i>
     </a>
 

@@ -3,7 +3,7 @@
 return [
     'database' => [
         'driver'   => 'sqlite',
-        'database' => 'database/database.sqlite',
+        'database' => 'app/model/database.sqlite',
         'username' => null,
         'password' => null,
     ]

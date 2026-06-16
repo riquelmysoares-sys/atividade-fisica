@@ -71,7 +71,7 @@ function navegarPara(rota) {
 }
 
 function sairDaConta() {
-    window.location.href = 'index.html'; 
+    window.location.href = 'index.php'; 
 }
 
 // ==========================================================
@@ -149,7 +149,7 @@ function verDetalhesExercicio(dia, index) {
     sessionStorage.setItem('exercicioAtual', JSON.stringify(exercicio));
     
     // Redireciona
-    window.location.href = 'detalhes-exercicio.html';
+    window.location.href = 'index.php?page=detalhes';
 }
 
 // ==========================================================
